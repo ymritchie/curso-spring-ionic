@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { API_CONFIG } from "../../config/api.config";
-import { CategoriaDTO } from "../../models/cstegoria.dto";
 import {Observable} from "rxjs/Rx"
+import { CategoriaDTO } from "../../models/categoria.dto";
 
 @Injectable()
 export class CategoriaService {

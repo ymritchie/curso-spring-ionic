@@ -35,7 +35,18 @@ export class AuthService {
         this.storage.setLocalUser(user);
     }
 
+    refreshToken(){
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/auth/refesh_token`, 
+            {},
+            {
+                observe: 'response',
+                responseType: 'text'
+            });
+    }
+
     logout(){
         this.storage.setLocalUser(null);
     }
+
 }

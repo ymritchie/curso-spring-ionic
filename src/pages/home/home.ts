@@ -40,4 +40,15 @@ export class HomePage {
     this.menu.swipeEnable(true);
   }
 
+  ionViewDidEnter(){
+    console.log("Passou por aqui")
+    this.auth.refreshToken()
+      .subscribe(response => {
+        console.log(response);
+        this.auth.successfullLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot("CategoriasPage");
+      }, 
+      error => {})
+  }
+
 }

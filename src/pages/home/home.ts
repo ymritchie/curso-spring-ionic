@@ -25,6 +25,7 @@ export class HomePage {
   login(){
     this.auth.autheticate(this.creds)
       .subscribe(response => {
+        console.log(response);
         this.auth.successfullLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot("CategoriasPage");
       }, 

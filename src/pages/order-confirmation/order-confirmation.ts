@@ -6,7 +6,6 @@ import { CartService } from '../../services/domain/cart.service';
 import { ClienteDTO } from '../../models/cliente.dto';
 import { EnderecoDTO } from '../../models/endereco.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
-import { ThrowStmt } from '@angular/compiler';
 import { PedidoService } from '../../services/domain/pedido.service';
 
 /**
@@ -27,6 +26,7 @@ export class OrderConfirmationPage {
   cartItems: CartItem[];
   cliente: ClienteDTO;
   endereco: EnderecoDTO;
+  codpedido: string;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -62,12 +62,10 @@ export class OrderConfirmationPage {
   }
 
   checkout(){
-    console.log(JSON.stringify(this.pedido));
-
     this.pedidoService.insert(this.pedido)
       .subscribe(response => {
         this.cartService.createOrClearCart();
-        console.log(response.headers.get('location'));
+        this.codpedido = this.extractId(response.headers.get('location'));
       },
       error => {
         if (error.status == 403){
@@ -78,6 +76,15 @@ export class OrderConfirmationPage {
 
   back(){
     this.navCtrl.setRoot("CartPage");
+  }
+
+  home(){
+    this.navCtrl.setRoot("CategoriasPage");
+  }
+
+  private extractId(location: string) : string {
+    let position = location.lastIndexOf("/");
+    return location.substring(position + 1, location.length);
   }
 
 }
